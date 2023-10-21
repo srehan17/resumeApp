@@ -2,11 +2,16 @@ const express = require('express')
 const app = express()
 
 app.get('/', (req, res) => {
-    res.send("Hello Frontend")
+    res.status(200).send("Hello Frontend")
 })
 
 app.get('/api', (req, res) => {
-    res.json({"users": ["user1", "user2", "user3", "user4"]})
+    res.status(200).json({"users": ["user1", "user2", "user3", "user4"]})
 })
 
-app.listen(5000, () => console.log("App listening on Port 5000"))
+let server = app.listen(5000, () => console.log("App listening on Port 5000"))
+
+module.exports = {
+    server : server,
+    app : app
+}
