@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { useState, useEffect } from 'react'
 
-const App = () => {
-  const [backendData, setBackendData] = useState([{}])
+const Home = () => {
+    const [backendData, setBackendData] = useState([{}])
 
   useEffect(() => {
     fetch('/api')
@@ -10,7 +11,6 @@ const App = () => {
       .catch(err => console.log(err))
    } , []
   )
-
   return (
     <div>
       {(typeof backendData.users === 'undefined') 
@@ -25,4 +25,4 @@ const App = () => {
   )
 }
 
-export default App
+export default Home
