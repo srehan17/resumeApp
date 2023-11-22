@@ -1,8 +1,12 @@
+const Experience = require('../models/experienceModel')
+
 // @desc    Get experiences
 // @route   GET /api/experience
 // @access  Private
 const getExperiences = async (req, res) => {
-    res.status(200).json({message: 'Get experience'})
+    const experience = await Experience.find()
+
+    res.status(200).json(experience)
 }
 
 // @desc    Set experience
