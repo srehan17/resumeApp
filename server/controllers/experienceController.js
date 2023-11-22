@@ -4,9 +4,11 @@ const Experience = require('../models/experienceModel')
 // @route   GET /api/experience
 // @access  Private
 const getExperiences = async (req, res) => {
-    const experience = await Experience.find()
+    res.status(200).json({experiences: ["experience1", "experience2", "experience3", "experience4"]})
 
-    res.status(200).json(experience)
+    // const experience = await Experience.find()
+
+    // res.status(200).json(experience)
 }
 
 // @desc    Set experience

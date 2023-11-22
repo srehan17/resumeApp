@@ -5,7 +5,7 @@ const Home = () => {
     const [backendData, setBackendData] = useState([{}])
 
   useEffect(() => {
-    fetch('/api')
+    fetch('/api/experience')
       .then(response => response.json()) 
       .then(data => setBackendData(data))
       .catch(err => console.log(err))
@@ -13,10 +13,10 @@ const Home = () => {
   )
   return (
     <div>
-      {(typeof backendData.users === 'undefined') 
+      {(typeof backendData.experiences === 'undefined') 
         ? (<p>Loading...</p>)
-        : (backendData.users.map((user, index) => (
-            <p key={index}>{user}</p>
+        : (backendData.experiences.map((experience, index) => (
+            <p key={index}>{experience}</p>
           )  
           )
         )
