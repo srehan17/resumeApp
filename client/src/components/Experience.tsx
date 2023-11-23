@@ -1,18 +1,21 @@
-import React from 'react'
-import { Form, Button, Container, CardTitle } from 'react-bootstrap'
+import React, { useState } from 'react'
+import { Form, Button, Container } from 'react-bootstrap'
 import { DatePicker } from 'react-date-picker'
 import 'react-date-picker/dist/DatePicker.css'
 import 'react-calendar/dist/Calendar.css'
+import Title from './Title'
 
 const Experience = () => {
+    const [startDate, setStartDate] = useState<Date | null>(null)
+    const [endDate, setEndDate] = useState<Date | null>(null)
+
     return (
         <Container>
-            <CardTitle className="text-center text-uppercase my-3">Experience</CardTitle>
+            <Title title="Experience" />
             <Form>
                 <Form.Group className="mb-3" controlId="formCompany">
-                    <Form.Label>Company Name</Form.Label>
-                    <Form.Control type="text" placeholder="Company name" />
-                    {/* <Form.Text className="text-muted"></Form.Text> */}
+                    <Form.Label>Company</Form.Label>
+                    <Form.Control type="text" placeholder="Company" />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formPosition">
                     <Form.Label>Position</Form.Label>
@@ -24,20 +27,21 @@ const Experience = () => {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formStartDate">
                     <Form.Label>Start Date</Form.Label>
-                    <DatePicker
-                    // onChange={onChange} value={value} 
+                    <DatePicker 
+                        value={startDate}
+                        onChange={(v) => setStartDate(v as Date)}  
                     />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formResponsibilities">
+                <Form.Group className="mb-3" controlId="formEndDate">
                     <Form.Label>End Date</Form.Label>
-                    <DatePicker
-                    // onChange={onChange} value={value} 
+                    <DatePicker                         
+                        value={endDate}
+                        onChange={(v) => setEndDate(v as Date)} 
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                     <Form.Check type="checkbox" label="Current Job" />
                 </Form.Group>
-
                 <Button variant="primary" type="submit">
                     Add
                 </Button>

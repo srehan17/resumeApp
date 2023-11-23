@@ -1,20 +1,18 @@
 import React from 'react'
-import { Form, Button, Container, CardTitle } from 'react-bootstrap'
+import { Form, Button, Container } from 'react-bootstrap'
 import { DatePicker } from 'react-date-picker'
 import 'react-date-picker/dist/DatePicker.css'
 import 'react-calendar/dist/Calendar.css'
+import Title from './Title'
 
 const Education = () => {
     return (
         <Container>
-            <CardTitle className="text-center text-uppercase my-3">Education</CardTitle>
-            <Form>
-                <Form.Group className="mb-3" controlId="formEducation">
+            <Title title="Education" />  
+            <Form>       
+                <Form.Group className="mb-3" controlId="formEducationalInstitution">
                     <Form.Label>Institution</Form.Label>
-                    <Form.Control type="text" placeholder="Enter institution name" />
-                    {/* <Form.Text className="text-muted">
-                    We'll never share your institution name with anyone else.
-                </Form.Text> */}
+                    <Form.Control type="text" placeholder="Institution" />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formQualification">
                     <Form.Label>Qualification</Form.Label>
@@ -26,17 +24,12 @@ const Education = () => {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="startYear">
                     <Form.Label>Start Year</Form.Label>
-                    <DatePicker
-                    // onChange={onChange} value={value} 
-                    />
+                    <DatePicker />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="End Year">
                     <Form.Label>End Year</Form.Label>
-                    <DatePicker
-                    // onChange={onChange} value={value} 
-                    />
+                    <DatePicker />
                 </Form.Group>
-
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                     <Form.Check type="checkbox" label="Graduated" />
                 </Form.Group>

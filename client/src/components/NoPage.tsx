@@ -1,8 +1,12 @@
 import React from 'react'
+import { Container } from 'react-bootstrap'
+import Title from './Title'
 
 const NoPage = () => {
     return (
-        <div>Oops this is not a page</div>
+        <Container>
+            <Title title="Invalid page" />
+        </Container>
     )
 }
 
