@@ -26,15 +26,17 @@ const Education = () => {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="startYear">
                     <Form.Label>Start Year</Form.Label>
-                    <Form.Control type="text" placeholder="Start Year" />
+                    <DatePicker
+                    // onChange={onChange} value={value} 
+                    />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="End Year">
                     <Form.Label>End Year</Form.Label>
-                    <Form.Control type="text" placeholder="End Year" />
+                    <DatePicker
+                    // onChange={onChange} value={value} 
+                    />
                 </Form.Group>
-                <DatePicker
-                // onChange={onChange} value={value} 
-                />
+
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                     <Form.Check type="checkbox" label="Graduated" />
                 </Form.Group>

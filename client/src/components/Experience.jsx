@@ -1,5 +1,8 @@
 import React from 'react'
 import { Form, Button, Container, CardTitle } from 'react-bootstrap'
+import { DatePicker } from 'react-date-picker'
+import 'react-date-picker/dist/DatePicker.css'
+import 'react-calendar/dist/Calendar.css'
 
 const Experience = () => {
     return (
@@ -21,11 +24,15 @@ const Experience = () => {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formStartDate">
                     <Form.Label>Start Date</Form.Label>
-                    <Form.Control type="text" placeholder="Start Date" />
+                    <DatePicker
+                    // onChange={onChange} value={value} 
+                    />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formResponsibilities">
                     <Form.Label>End Date</Form.Label>
-                    <Form.Control type="text" placeholder="End Date" />
+                    <DatePicker
+                    // onChange={onChange} value={value} 
+                    />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                     <Form.Check type="checkbox" label="Current Job" />
