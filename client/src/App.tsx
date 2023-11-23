@@ -9,7 +9,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { FC } from 'react';
 
 const App: FC = () => {
-
   return (
     <BrowserRouter>
       <Routes>
