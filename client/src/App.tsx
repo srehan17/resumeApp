@@ -6,14 +6,15 @@ import Experience from './components/Experience'
 import NoPage from './components/NoPage'
 import Layout from './components/Layout'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { FC } from 'react';
 
-const App = () => {
+const App: FC = () => {
 
   return (
     <BrowserRouter>
       <Routes>
         {/* <Route element={<Layout />}> */}
-        <Route exact path="/" element={<Home />} />
+        <Route index path="/" element={<Home />} />
         <Route path="/education" element={<Education />} />
         <Route path="/experience" element={<Experience />} />
         <Route path="*" element={<NoPage />} />
