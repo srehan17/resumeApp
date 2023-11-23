@@ -1,8 +1,12 @@
 import React from 'react'
+import Container from 'react-bootstrap/Container'
 
 const Layout = () => {
     return (
-        <div>Layout</div>
+        <Container>
+
+
+        </Container>
     )
 }
 
