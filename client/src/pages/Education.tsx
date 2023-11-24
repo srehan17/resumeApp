@@ -3,53 +3,53 @@ import { Form, Button, Container } from 'react-bootstrap'
 import { DatePicker } from 'react-date-picker'
 import 'react-date-picker/dist/DatePicker.css'
 import 'react-calendar/dist/Calendar.css'
-import Title from './Title'
+import Title from '../components/Title'
 
-const Experience = () => {
+const Education = () => {
     const [startDate, setStartDate] = useState<Date | null>(null)
     const [endDate, setEndDate] = useState<Date | null>(null)
-
+    
     const [isChecked, setIsChecked] = useState(false)
     
     const checkHandler = () => {
         setIsChecked(!isChecked)
     }
-    
+
     return (
         <Container>
-            <Title title="Experience" />
-            <Form>
-                <Form.Group className="mb-3" controlId="formCompany">
-                    <Form.Label>Company</Form.Label>
-                    <Form.Control type="text" placeholder="Company" />
+            <Title title="Education" />  
+            <Form>       
+                <Form.Group className="mb-3" controlId="formEducationalInstitution">
+                    <Form.Label>Institution</Form.Label>
+                    <Form.Control type="text" placeholder="Institution" />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formPosition">
-                    <Form.Label>Position</Form.Label>
-                    <Form.Control type="text" placeholder="Position" />
+                <Form.Group className="mb-3" controlId="formQualification">
+                    <Form.Label>Qualification</Form.Label>
+                    <Form.Control type="text" placeholder="Password" />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formResponsibilities">
-                    <Form.Label>Responsibilities</Form.Label>
-                    <Form.Control type="text" as="textarea" rows={3} placeholder="Responsibilities" />
+                <Form.Group className="mb-3" controlId="formGpa">
+                    <Form.Label>GPA</Form.Label>
+                    <Form.Control type="text" placeholder="GPA"/>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formStartDate">
-                    <Form.Label>Start Date</Form.Label>
+                <Form.Group className="mb-3" controlId="startYear">
+                    <Form.Label>Start Year</Form.Label>
                     <DatePicker className="mx-3"
                         value={startDate}
                         onChange={(v) => setStartDate(v as Date)}  
                     />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formEndDate">
-                    <Form.Label>End Date</Form.Label>
-                    <DatePicker className="mx-3"                    
+                <Form.Group className="mb-3" controlId="End Year">
+                    <Form.Label>End Year</Form.Label>
+                    <DatePicker className="mx-3"
                         value={endDate}
-                        onChange={(v) => setEndDate(v as Date)} 
+                        onChange={(v) => setEndDate(v as Date)}  
                         disabled={isChecked}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check 
+                <Form.Check 
                         type="checkbox" 
-                        label="Current Job" 
+                        label="Graduated" 
                         data-toggle="toggle"
                         checked={isChecked}
                         onChange={checkHandler}
@@ -59,8 +59,8 @@ const Experience = () => {
                     Add
                 </Button>
             </Form>
-        </Container >
+        </Container>
     )
 }
 
-export default Experience
+export default Education

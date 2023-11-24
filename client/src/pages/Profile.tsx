@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Container, Form } from 'react-bootstrap'
-import Title from './Title'
+import Title from '../components/Title'
 
 const Profile = () => {
   return (
