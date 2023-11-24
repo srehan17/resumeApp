@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const Experience = require('../models/experienceModel')
+const User = require('../models/userModel')
 
 // @desc    Get experiences
 // @route   GET /api/experience
@@ -20,6 +21,7 @@ const setExperience = asyncHandler(async (req, res) => {
         res.status(400)
         throw Error('Please add all required text fields')
     }
+
     const experience = await Experience.create({
         company,
         position,
@@ -33,18 +35,66 @@ const setExperience = asyncHandler(async (req, res) => {
 // @route   PUT /api/experience/:id
 // @access  Private
 const updateExperience = asyncHandler(async (req, res) => {
-    if(!req.body.text){
+    
+    const experience = await Experience.findById(req.params.id)
+
+    if (!experience) {
         res.status(400)
-        throw new Error('Please add text')
+        throw new Error('Experience not found')
     }
-    res.status(200).json({message: `Update experience ${req.params.id}`})
+
+    const user = await User.findById(req.user.id)
+
+    if (!user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    // Make sure loggedIn user matched experience user
+    if (experience.user.toString() !== user.id) {
+        res.status(401)
+        throw new Error('User not authorized')
+    }
+
+    const updatedExperience = await Experience.findByIdAndUpdate(
+        req.params.id, 
+        req.body, 
+        {
+            new: true
+        }
+    )
+
+    res.status(200).json(updatedExperience)
 })
 
 // @desc    Delete experience
 // @route   DELETE /api/experience/:id
 // @access  Private
 const deleteExperience = async (req, res) => {
-    res.status(200).json({message: `Update experience ${req.params.id}`})
+
+    const experience = await Experience.findById(req.params.id)
+
+    if (!experience) {
+        res.status(400)
+        throw new Error('Experience not found')
+    }
+
+    const user = await User.findById(req.user.id)
+
+    if (!user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    // Make sure loggedIn user matched experience user
+    if (experience.user.toString() !== user.id) {
+        res.status(401)
+        throw new Error('User not authorized')
+    }
+
+    await Experience.remove()
+
+    res.status(200).json({id: req.params.id})
 }
 
 module.exports = {
