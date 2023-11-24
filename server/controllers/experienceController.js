@@ -15,15 +15,18 @@ const getExperiences = asyncHandler(async (req, res) => {
 // @route   POST /api/experience
 // @access  Private
 const setExperience = asyncHandler(async (req, res) => {
-    if(!req.body.text){
+    const {company, position, startYear} = req.body
+    if(!company || !position || !startYear){
         res.status(400)
-        throw Error('Please add a text field')
+        throw Error('Please add all required text fields')
     }
-    const goal = await Goal.create({
-        text: req.body.text,
+    const experience = await Experience.create({
+        company,
+        position,
+        startYear,
         user: req.user.id
     })
-    res.status(200).json(goal)
+    res.status(200).json(experience)
 })
 
 // @desc    Update experience
