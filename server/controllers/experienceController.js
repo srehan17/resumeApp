@@ -5,11 +5,10 @@ const Experience = require('../models/experienceModel')
 // @route   GET /api/experience
 // @access  Private
 const getExperiences = asyncHandler(async (req, res) => {
-    res.status(200).json({experiences: ["experience1", "experience2", "experience3", "experience4"]})
 
-    // const experience = await Experience.find()
+    const experience = await Experience.find({user: req.user.id})
 
-    // res.status(200).json(experience)
+    res.status(200).json(experience)
 })
 
 // @desc    Set experience
@@ -18,9 +17,13 @@ const getExperiences = asyncHandler(async (req, res) => {
 const setExperience = asyncHandler(async (req, res) => {
     if(!req.body.text){
         res.status(400)
-        throw Error('There is no text')
+        throw Error('Please add a text field')
     }
-    res.status(200).json({message: 'Set experience'})
+    const goal = await Goal.create({
+        text: req.body.text,
+        user: req.user.id
+    })
+    res.status(200).json(goal)
 })
 
 // @desc    Update experience
