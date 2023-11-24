@@ -9,6 +9,12 @@ const Experience = () => {
     const [startDate, setStartDate] = useState<Date | null>(null)
     const [endDate, setEndDate] = useState<Date | null>(null)
 
+    const [isChecked, setIsChecked] = useState(false)
+    
+    const checkHandler = () => {
+        setIsChecked(!isChecked)
+    }
+    
     return (
         <Container>
             <Title title="Experience" />
@@ -27,20 +33,27 @@ const Experience = () => {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formStartDate">
                     <Form.Label>Start Date</Form.Label>
-                    <DatePicker 
+                    <DatePicker className="mx-3"
                         value={startDate}
                         onChange={(v) => setStartDate(v as Date)}  
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formEndDate">
                     <Form.Label>End Date</Form.Label>
-                    <DatePicker                         
+                    <DatePicker className="mx-3"                    
                         value={endDate}
                         onChange={(v) => setEndDate(v as Date)} 
+                        disabled={isChecked}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Current Job" />
+                    <Form.Check 
+                        type="checkbox" 
+                        label="Current Job" 
+                        data-toggle="toggle"
+                        checked={isChecked}
+                        onChange={checkHandler}
+                        />
                 </Form.Group>
                 <Button variant="primary" type="submit">
                     Add
