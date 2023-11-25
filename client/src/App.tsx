@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Navigation from "./components/Navigation"
+import Header from "./components/Header"
 import Dashboard from "./pages/Dashboard"
 import Profile from './pages/Profile'
 import Education from "./pages/Education"
@@ -15,7 +15,7 @@ import Login from './pages/Login'
 const App: FC = () => {
   return (
     <BrowserRouter>
-    <Navigation />
+    <Header />
     <Routes>      
       <Route index path="/" element={<Dashboard />} />
       <Route path="/profile" element={<Profile />} />

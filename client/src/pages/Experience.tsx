@@ -14,22 +14,54 @@ const Experience = () => {
     const checkHandler = () => {
         setIsChecked(!isChecked)
     }
+
+    const [company, setCompany] = useState<string>()
+    const [position, setPosition] = useState<string>()
+    const [responsibilities, setResponsibilities] = useState<string>()
+    const [message, setMessage] = useState<string>()
+
+    let handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+          let res = await fetch("https://httpbin.org/post", {
+            method: "POST",
+            body: JSON.stringify({
+              company,
+              position,
+              responsibilities,
+              startDate
+            }),
+          });
+          let resJson = await res.json();
+          if (res.status === 200) {
+            setCompany("");
+            setPosition("");
+            setResponsibilities("");
+            setStartDate(null);
+          } else {
+            setMessage("Some error occured");
+          }
+          console.log("RESJSON: ",resJson);
+        } catch (err) {
+          console.log(err);
+        }
+      };
     
     return (
         <Container>
             <Title title="Experience" />
-            <Form action="POST">
+            <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formCompany">
                     <Form.Label>Company</Form.Label>
-                    <Form.Control type="text" placeholder="Company" />
+                    <Form.Control type="text" placeholder="Company" value={company}/>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formPosition">
                     <Form.Label>Position</Form.Label>
-                    <Form.Control type="text" placeholder="Position" />
+                    <Form.Control type="text" placeholder="Position" value={position}/>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formResponsibilities">
                     <Form.Label>Responsibilities</Form.Label>
-                    <Form.Control type="text" as="textarea" rows={3} placeholder="Responsibilities" />
+                    <Form.Control type="text" as="textarea" rows={3} placeholder="Responsibilities" value={responsibilities}/>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formStartDate">
                     <Form.Label>Start Date</Form.Label>
