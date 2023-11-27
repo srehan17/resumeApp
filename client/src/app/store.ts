@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit"
 import authReducer from '../features/auth/authSlice'
+import experienceReducer from '../features/experience/experienceSlice'
 
 const store = configureStore({
     reducer: {
         auth: authReducer,
+        experience: experienceReducer,
     },
 })
 
