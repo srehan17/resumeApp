@@ -4,81 +4,126 @@ import { DatePicker } from 'react-date-picker'
 import 'react-date-picker/dist/DatePicker.css'
 import 'react-calendar/dist/Calendar.css'
 import Title from '../components/Title'
+import { useAppSelector, useAppDispatch } from '../app/hooks'
+import { createExperience } from '../features/experience/experienceSlice'
+import { useNavigate } from 'react-router-dom'
+import Spinner from '../components/Spinner'
 
 const Experience = () => {
-    const [startDate, setStartDate] = useState<Date | null>(null)
-    const [endDate, setEndDate] = useState<Date | null>(null)
 
-    const [isChecked, setIsChecked] = useState(false)
+    const [formData, setFormData] = useState({
+        company: "",
+        position: "",
+        responsibilities: "",
+        startYear: "",
+        endYear: ""
+    })
+
+    // const [startDate, setStartDate] = useState<Date | null>(null)
+    // const [endDate, setEndDate] = useState<Date | null>(null)
+    // const [startDate, setStartDate] = useState<Date>(new Date())
+    // const [endDate, setEndDate] = useState<Date>(new Date())
+
     
-    const checkHandler = () => {
-        setIsChecked(!isChecked)
-    }
+    const {company, position, responsibilities, startYear, endYear} = formData
 
-    const [company, setCompany] = useState<string>()
-    const [position, setPosition] = useState<string>()
-    const [responsibilities, setResponsibilities] = useState<string>()
-    const [message, setMessage] = useState<string>()
+    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
+
+    // const [isChecked, setIsChecked] = useState(false)
+    
+    // const checkHandler = () => {
+    //     setIsChecked(!isChecked)
+    // }
+
+    const {experience, isLoading, isError, isSuccess, message} = useAppSelector(
+        (state) => state.experience)
+
+    const onChange = (e) => {
+        setFormData((prevState) => ({...prevState, [e.target.name]: e.target.value}))
+    }
 
     let handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-          let res = await fetch("https://httpbin.org/post", {
-            method: "POST",
-            body: JSON.stringify({
-              company,
-              position,
-              responsibilities,
-              startDate
-            }),
-          });
-          let resJson = await res.json();
-          if (res.status === 200) {
-            setCompany("");
-            setPosition("");
-            setResponsibilities("");
-            setStartDate(null);
-          } else {
-            setMessage("Some error occured");
-          }
-          console.log("RESJSON: ",resJson);
-        } catch (err) {
-          console.log(err);
+
+        const experienceData = {
+            company, position, responsibilities, startYear, endYear
         }
+        
+        dispatch(createExperience(experienceData))
+
       };
     
+    // if (isLoading) {
+    //     return <Spinner />
+    // }
+
     return (
         <Container>
             <Title title="Experience" />
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formCompany">
                     <Form.Label>Company</Form.Label>
-                    <Form.Control type="text" placeholder="Company" value={company}/>
+                    <Form.Control 
+                        type="text" 
+                        placeholder="Company" 
+                        value={company} 
+                        name= "company"
+                        onChange={onChange}
+                    />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formPosition">
                     <Form.Label>Position</Form.Label>
-                    <Form.Control type="text" placeholder="Position" value={position}/>
+                    <Form.Control 
+                        type="text" 
+                        placeholder="Position" 
+                        value={position} 
+                        name="position"
+                        onChange={onChange}
+                    />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formResponsibilities">
                     <Form.Label>Responsibilities</Form.Label>
-                    <Form.Control type="text" as="textarea" rows={3} placeholder="Responsibilities" value={responsibilities}/>
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formStartDate">
-                    <Form.Label>Start Date</Form.Label>
-                    <DatePicker className="mx-3"
-                        value={startDate}
-                        onChange={(v) => setStartDate(v as Date)}  
+                    <Form.Control 
+                        type="text" 
+                        as="textarea" 
+                        rows={3} 
+                        placeholder="Responsibilities" 
+                        name="responsibilities"
+                        value={responsibilities} 
+                        onChange={onChange}
                     />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formEndDate">
-                    <Form.Label>End Date</Form.Label>
-                    <DatePicker className="mx-3"                    
+                <Form.Group className="mb-3" controlId="formStartYear">
+                    <Form.Label>Start Year</Form.Label>
+                    <Form.Control 
+                        type="text" 
+                        placeholder="Start Year" 
+                        value={startYear} 
+                        name="startYear"
+                        onChange={onChange}
+                    />
+                    {/* <DatePicker className="mx-3"
+                        value={startDate}
+                        onChange={(v) => setStartDate(v as Date)} 
+                    /> */}
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formEndYear">
+                    <Form.Label>End Year</Form.Label>
+                    <Form.Control 
+                        type="text" 
+                        placeholder="End Year" 
+                        value={endYear} 
+                        name="endYear"
+                        onChange={onChange}
+                    />
+                    {/* <DatePicker className="mx-3"                    
                         value={endDate}
                         onChange={(v) => setEndDate(v as Date)} 
                         disabled={isChecked}
-                    />
+                    /> */}
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
                     <Form.Check 
                         type="checkbox" 
                         label="Current Job" 
@@ -86,7 +131,7 @@ const Experience = () => {
                         checked={isChecked}
                         onChange={checkHandler}
                         />
-                </Form.Group>
+                </Form.Group> */}
                 <Button variant="primary" type="submit">
                     Add
                 </Button>

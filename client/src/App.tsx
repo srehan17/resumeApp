@@ -19,7 +19,7 @@ const App: FC = () => {
     <BrowserRouter>
     <Header />
     <Routes>      
-      <Route index path="/" element={<Dashboard />} />
+      <Route path="/" element={<Dashboard />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/education" element={<Education />} />
       <Route path="/experience" element={<Experience />} />

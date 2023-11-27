@@ -35,10 +35,10 @@ const Header = () => {
                     <Nav.Link href="/education">Education</Nav.Link>
                     <Nav.Link href="/experience">Experience</Nav.Link>
                     {user ? 
-                        <Nav.Link onClick={onLogout} href="/">Logout</Nav.Link>
-                        // <Button type="button" className="btn btn-secondary" onClick={onLogout}>
-                        //     Logout
-                        // </Button>
+                        // <Nav.Link onClick={onLogout} href="/">Logout</Nav.Link>
+                        <Button type="button" className="btn btn-secondary" onClick={onLogout}>
+                            Logout
+                        </Button>
                         : 
                         <>
                             <Nav.Link href="/login">Login</Nav.Link>
