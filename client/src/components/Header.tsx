@@ -17,7 +17,6 @@ const Header = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch<any>();
     const { user } = useSelector((state: any) => state.auth)
-    console.log("topbar",user); // returns the initial state
 
     const onLogout = () => {
         dispatch(logout())
@@ -36,9 +35,10 @@ const Header = () => {
                     <Nav.Link href="/education">Education</Nav.Link>
                     <Nav.Link href="/experience">Experience</Nav.Link>
                     {user ? 
-                        <Button type="button" className="btn btn-secondary" onClick={onLogout}>
-                            Logout
-                        </Button>
+                        <Nav.Link onClick={onLogout} href="/">Logout</Nav.Link>
+                        // <Button type="button" className="btn btn-secondary" onClick={onLogout}>
+                        //     Logout
+                        // </Button>
                         : 
                         <>
                             <Nav.Link href="/login">Login</Nav.Link>
