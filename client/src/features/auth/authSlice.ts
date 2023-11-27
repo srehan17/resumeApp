@@ -1,8 +1,9 @@
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import authService from './authService'
 
-// Get user from local storage
-const user = JSON.parse(localStorage.getItem('user') as string)
+const user = JSON.parse(localStorage.getItem('user')!)
+// Added exclamation point / bang (!) directly after the parameter to JSON.parse(). 
+// It tells the TypeScript compiler not to worry because the parameter will never be null which removes the TypeScript error.
 
 const initialState = {
     user: user ? user : null,
@@ -10,16 +11,27 @@ const initialState = {
     isSuccess: false,
     isLoading: false,
     message: ''
+} 
+
+type User = {
+    name: string
+    email: string
+    password: string
 }
 
 // Register user
-export const register = createAsyncThunk('auth/register', async (user, thunkAPI) => {
+export const register = createAsyncThunk('auth/register', 
+    async (user: User, thunkAPI) => {
     try {
         return await authService.register(user)
     } catch(err) {
         const message = (err.response && err.response.data && err.response.data.message) || err.message || err.toString()
         return thunkAPI.rejectWithValue(message)
     }
+})
+
+export const logout = createAsyncThunk('auth/logout', async () => {
+    await authService.logout()
 })
 
 export const authSlice = createSlice({
@@ -47,6 +59,9 @@ export const authSlice = createSlice({
                 state.isLoading = false
                 state.isError = true
                 state.message = action.payload as string
+                state.user = null
+            })
+            .addCase(logout.fulfilled, (state) => {
                 state.user = null
             })
     }

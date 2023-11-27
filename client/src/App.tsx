@@ -11,9 +11,13 @@ import { FC } from 'react';
 import  './App.css'
 import Register from './pages/Register'
 import Login from './pages/Login'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+// import { register, reset } from './features/auth/authSlice'
 
 const App: FC = () => {
   return (
+    <>
     <BrowserRouter>
     <Header />
     <Routes>      
@@ -26,6 +30,8 @@ const App: FC = () => {
       <Route path="*" element={<InvalidPage />} />
     </Routes>
     </BrowserRouter>
+    <ToastContainer/>
+    </>
   )
 }
 

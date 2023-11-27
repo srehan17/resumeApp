@@ -1,23 +1,66 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+// import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { Button, Container, Form } from 'react-bootstrap'
 import Title from '../components/Title'
+import { register, reset } from '../features/auth/authSlice'
+import Spinner from '../components/Spinner'
+import { useAppSelector, useAppDispatch } from '../app/hooks'
 
 const Register = () => {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
         password: "",
-        password2: ""
+        password2: "",
     })
 
     const {name, email, password, password2} = formData
 
+    const navigate = useNavigate()
+    // const dispatch = useDispatch<any>();
+    const dispatch = useAppDispatch()
+    
+    // const {user, isLoading, isError, isSuccess, message} = useSelector(
+    //     (state: any) => state.auth
+    // )
+    const {user, isLoading, isError, isSuccess, message} = useAppSelector(
+        (state) => state.auth)
+
+    useEffect(() => {
+        if (isError) {
+            toast.error(message)
+        }
+
+        if (isSuccess || user) {
+            navigate('/')
+        }
+
+        dispatch(reset())
+
+    }, [user, isError, isSuccess, message, navigate, dispatch]) 
+    
     const onChange = (e) => {
         setFormData((prevState) => ({...prevState, [e.target.name]: e.target.value}))
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
+
+        if (password !== password2) {
+            toast.error("Passwords do not match")
+        }
+        else {
+            const userData = {
+                name, email, password
+            }
+            dispatch(register(userData));
+        }
+    }
+
+    if (isLoading) {
+        return <Spinner />
     }
 
   return (
@@ -49,7 +92,7 @@ const Register = () => {
             <Form.Group className="mb-3" controlId="formPassword">
                 <Form.Label>Password</Form.Label>
                 <Form.Control 
-                    type="text" 
+                    type="password" 
                     placeholder="Password" 
                     id="password" 
                     name="password" 
@@ -60,7 +103,7 @@ const Register = () => {
             <Form.Group className="mb-3" controlId="formPassword2">
                 <Form.Label>Password2</Form.Label>
                 <Form.Control 
-                    type="text" 
+                    type="password" 
                     placeholder="Password2" 
                     id="Password2" 
                     name="password2" 
