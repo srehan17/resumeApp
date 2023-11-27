@@ -23,18 +23,17 @@ const Experience = () => {
     // const [endDate, setEndDate] = useState<Date | null>(null)
     // const [startDate, setStartDate] = useState<Date>(new Date())
     // const [endDate, setEndDate] = useState<Date>(new Date())
-
     
     const {company, position, responsibilities, startYear, endYear} = formData
 
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
-    // const [isChecked, setIsChecked] = useState(false)
+    const [isChecked, setIsChecked] = useState(false)
     
-    // const checkHandler = () => {
-    //     setIsChecked(!isChecked)
-    // }
+    const checkHandler = () => {
+        setIsChecked(!isChecked)
+    }
 
     const {experience, isLoading, isError, isSuccess, message} = useAppSelector(
         (state) => state.experience)
@@ -54,9 +53,9 @@ const Experience = () => {
 
       };
     
-    // if (isLoading) {
-    //     return <Spinner />
-    // }
+    if (isLoading) {
+        return <Spinner />
+    }
 
     return (
         <Container>
@@ -66,7 +65,6 @@ const Experience = () => {
                     <Form.Label>Company</Form.Label>
                     <Form.Control 
                         type="text" 
-                        placeholder="Company" 
                         value={company} 
                         name= "company"
                         onChange={onChange}
@@ -76,7 +74,6 @@ const Experience = () => {
                     <Form.Label>Position</Form.Label>
                     <Form.Control 
                         type="text" 
-                        placeholder="Position" 
                         value={position} 
                         name="position"
                         onChange={onChange}
@@ -88,7 +85,6 @@ const Experience = () => {
                         type="text" 
                         as="textarea" 
                         rows={3} 
-                        placeholder="Responsibilities" 
                         name="responsibilities"
                         value={responsibilities} 
                         onChange={onChange}
@@ -98,7 +94,6 @@ const Experience = () => {
                     <Form.Label>Start Year</Form.Label>
                     <Form.Control 
                         type="text" 
-                        placeholder="Start Year" 
                         value={startYear} 
                         name="startYear"
                         onChange={onChange}
@@ -112,10 +107,10 @@ const Experience = () => {
                     <Form.Label>End Year</Form.Label>
                     <Form.Control 
                         type="text" 
-                        placeholder="End Year" 
                         value={endYear} 
                         name="endYear"
                         onChange={onChange}
+                        disabled={isChecked}
                     />
                     {/* <DatePicker className="mx-3"                    
                         value={endDate}
@@ -123,7 +118,7 @@ const Experience = () => {
                         disabled={isChecked}
                     /> */}
                 </Form.Group>
-                {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                <Form.Group className="mb-3" controlId="formBasicCheckbox">
                     <Form.Check 
                         type="checkbox" 
                         label="Current Job" 
@@ -131,7 +126,7 @@ const Experience = () => {
                         checked={isChecked}
                         onChange={checkHandler}
                         />
-                </Form.Group> */}
+                </Form.Group>
                 <Button variant="primary" type="submit">
                     Add
                 </Button>
