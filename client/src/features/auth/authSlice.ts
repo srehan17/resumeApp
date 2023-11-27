@@ -13,17 +13,33 @@ const initialState = {
     message: ''
 } 
 
-type User = {
-    name: string
-    email: string
-    password: string
+type UserRegister = {
+    name : string,
+    email : string, 
+    password : string
+}
+
+type UserLogin = {
+    email : string, 
+    password : string
 }
 
 // Register user
 export const register = createAsyncThunk('auth/register', 
-    async (user: User, thunkAPI) => {
+    async (user: UserRegister, thunkAPI) => {
     try {
         return await authService.register(user)
+    } catch(err) {
+        const message = (err.response && err.response.data && err.response.data.message) || err.message || err.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
+// Login user
+export const login = createAsyncThunk('auth/login', 
+    async (user: UserLogin, thunkAPI) => {
+    try {
+        return await authService.login(user)
     } catch(err) {
         const message = (err.response && err.response.data && err.response.data.message) || err.message || err.toString()
         return thunkAPI.rejectWithValue(message)
@@ -56,6 +72,20 @@ export const authSlice = createSlice({
                 state.user = action.payload
             })
             .addCase(register.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.message = action.payload as string
+                state.user = null
+            })
+            .addCase(login.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(login.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.user = action.payload
+            })
+            .addCase(login.rejected, (state, action) => {
                 state.isLoading = false
                 state.isError = true
                 state.message = action.payload as string

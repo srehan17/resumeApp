@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-// import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { Button, Container, Form } from 'react-bootstrap'
@@ -19,12 +18,8 @@ const Register = () => {
     const {name, email, password, password2} = formData
 
     const navigate = useNavigate()
-    // const dispatch = useDispatch<any>();
     const dispatch = useAppDispatch()
     
-    // const {user, isLoading, isError, isSuccess, message} = useSelector(
-    //     (state: any) => state.auth
-    // )
     const {user, isLoading, isError, isSuccess, message} = useAppSelector(
         (state) => state.auth)
 
@@ -101,10 +96,10 @@ const Register = () => {
                 />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formPassword2">
-                <Form.Label>Password2</Form.Label>
+                <Form.Label>Re-enter Password</Form.Label>
                 <Form.Control 
                     type="password" 
-                    placeholder="Password2" 
+                    placeholder="Re-enter Password" 
                     id="Password2" 
                     name="password2" 
                     value={password2}
