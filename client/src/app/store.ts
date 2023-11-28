@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit"
 import authReducer from '../features/auth/authSlice'
 import experienceReducer from '../features/experience/experienceSlice'
 import educationReducer from '../features/education/educationSlice'
+import profileReducer from '../features/profile/profileSlice'
 
 const store = configureStore({
     reducer: {
         auth: authReducer,
         experience: experienceReducer,
-        education: educationReducer
+        education: educationReducer,
+        profile: profileReducer
     },
 })
 
