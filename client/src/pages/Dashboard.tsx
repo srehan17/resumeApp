@@ -1,13 +1,14 @@
-import React from 'react'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Button, Container } from 'react-bootstrap'
 import Title from '../components/Title'
 import { useNavigate } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../app/hooks'
 import Spinner from '../components/Spinner'
-import { getExperience, reset } from '../features/experience/experienceSlice'
+import { getExperience } from '../features/experience/experienceSlice'
+import { getEducation } from '../features/education/educationSlice'
 import ExperienceItem from '../components/ExperienceItem'
-import {Table} from 'react-bootstrap'
+import EducationItem from '../components/EducationItem'
+import { Table } from 'react-bootstrap'
 
 const Dashboard = () => {
 
@@ -61,6 +62,32 @@ const Dashboard = () => {
               <tbody>
                 {experience.map((item, index) => (
                   <tr key={index}><ExperienceItem item={item} /></tr>
+                ))} 
+              </tbody>
+            </Table>
+            </>
+        ) : (
+          null
+        )}
+      </section>
+
+      <section className='content'>
+        {education.length > 0 ? (
+          <>
+          <h4 className='mt-5 text-uppercase'>Education</h4>
+            <Table striped className='experience'>
+              <thead>
+                <tr>
+                  <th>Institution</th>
+                  <th>Qualification</th>
+                  <th>GPA</th>
+                  <th>Start Year</th>
+                  <th>End Year</th>
+                </tr>
+              </thead>
+              <tbody>
+                {education.map((item, index) => (
+                  <tr key={index}><EducationItem item={item} /></tr>
                 ))} 
               </tbody>
             </Table>

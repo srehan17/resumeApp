@@ -6,9 +6,22 @@ import 'react-calendar/dist/Calendar.css'
 import Title from '../components/Title'
 
 const Education = () => {
-    const [startDate, setStartDate] = useState<Date | null>(null)
-    const [endDate, setEndDate] = useState<Date | null>(null)
+
+    const initialState = {
+        institution: "",
+        qualification: "",
+        gpa: "",
+        startYear: "",
+        endYear: ""
+    }
+
+    const [formData, setFormData] = useState(initialState)
+
+    // const [startDate, setStartDate] = useState<Date | null>(null)
+    // const [endDate, setEndDate] = useState<Date | null>(null)
     
+    const { institution, qualification, gpa, startYear, endYear} = formData
+
     const [isChecked, setIsChecked] = useState(false)
     
     const checkHandler = () => {
@@ -33,18 +46,18 @@ const Education = () => {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="startYear">
                     <Form.Label>Start Year</Form.Label>
-                    <DatePicker className="mx-3"
+                    {/* <DatePicker className="mx-3"
                         value={startDate}
                         onChange={(v) => setStartDate(v as Date)}  
-                    />
+                    /> */}
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="End Year">
                     <Form.Label>End Year</Form.Label>
-                    <DatePicker className="mx-3"
+                    {/* <DatePicker className="mx-3"
                         value={endDate}
                         onChange={(v) => setEndDate(v as Date)}  
                         disabled={isChecked}
-                    />
+                    /> */}
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                 <Form.Check 

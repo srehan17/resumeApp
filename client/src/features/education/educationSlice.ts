@@ -7,9 +7,9 @@ const education = JSON.parse(localStorage.getItem('education')!)
 
 type Education = {
     _id?: string,
-    company: string,
-    position: string,
-    responsibilities?: string,
+    institution: string,
+    qualification: string,
+    gpa?: string,
     startYear: string
     endYear?: string
 }
