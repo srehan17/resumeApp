@@ -9,9 +9,9 @@ type Experience = {
     _id?: string,
     company: string,
     position: string,
-    responsibilities: string,
+    responsibilities?: string,
     startYear: string
-    endYear: string
+    endYear?: string
 }
 
 interface InitialState {
