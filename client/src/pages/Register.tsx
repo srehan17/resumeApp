@@ -66,7 +66,6 @@ const Register = () => {
                 <Form.Label>Name</Form.Label>
                 <Form.Control 
                     type="text" 
-                    placeholder="Name" 
                     id="name" 
                     name="name" 
                     value={name}
@@ -77,7 +76,6 @@ const Register = () => {
                 <Form.Label>Email</Form.Label>
                 <Form.Control 
                     type="text" 
-                    placeholder="Email" 
                     id="email" 
                     name="email" 
                     value={email}
@@ -88,7 +86,6 @@ const Register = () => {
                 <Form.Label>Password</Form.Label>
                 <Form.Control 
                     type="password" 
-                    placeholder="Password" 
                     id="password" 
                     name="password" 
                     value={password}
@@ -96,10 +93,9 @@ const Register = () => {
                 />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formPassword2">
-                <Form.Label>Re-enter Password</Form.Label>
+                <Form.Label>Confirm Password</Form.Label>
                 <Form.Control 
                     type="password" 
-                    placeholder="Re-enter Password" 
                     id="Password2" 
                     name="password2" 
                     value={password2}

@@ -23,8 +23,8 @@ const Header = () => {
         dispatch(reset())
         navigate('/')
     }
-    console.log(user)
-  return (
+
+    return (
     <Navbar expand="lg" className="bg-body-tertiary">
         <Container>
             <Navbar.Brand href="/">Resume Builder</Navbar.Brand>

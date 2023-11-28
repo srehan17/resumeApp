@@ -13,12 +13,12 @@ const Login = () => {
         password: "",
     })
 
-    const {email, password} = formData
+    const { email, password } = formData
 
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     
-    const {user, isLoading, isError, isSuccess, message} = useAppSelector(
+    const { user, isLoading, isError, isSuccess, message } = useAppSelector(
         (state) => state.auth
     )
 
@@ -31,12 +31,16 @@ const Login = () => {
             navigate('/')
         }
 
-        dispatch(reset())
-
+        return () => {
+            dispatch(reset())
+        }
+      
     }, [user, isError, isSuccess, message, navigate, dispatch]) 
 
     const onChange = (e) => {
-        setFormData((prevState) => ({...prevState, [e.target.name]: e.target.value}))
+        setFormData((prevState) => (
+            {...prevState, [e.target.name]: e.target.value}
+        ))
     }
 
     const handleSubmit = (e) => {
@@ -45,6 +49,7 @@ const Login = () => {
         const userData = {
             email, password
         }
+
         dispatch(login(userData))
     }
 
@@ -60,7 +65,6 @@ const Login = () => {
                 <Form.Label>Email</Form.Label>
                 <Form.Control 
                     type="text" 
-                    placeholder="Email" 
                     id="email" 
                     name="email" 
                     value={email}
@@ -71,7 +75,6 @@ const Login = () => {
                 <Form.Label>Password</Form.Label>
                 <Form.Control 
                     type="password" 
-                    placeholder="Password" 
                     id="password" 
                     name="password" 
                     value={password}

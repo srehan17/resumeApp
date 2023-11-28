@@ -13,25 +13,21 @@ const Dashboard = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   
-  // const { user } = useAppSelector((state) => state.auth)
+  const { user } = useAppSelector((state) => state.auth)
   const {experience, isLoading, isError, message} = useAppSelector(
     (state) => state.experience)
 
-  useEffect(() => {
-    if (isError) {
-      console.log(message)
-    }
-    // if (!user) {
-    //   navigate('/login')
-    // }
-    // dispatch(getExperience())
+  // useEffect(() => {
+  //   if (isError) {
+  //     console.log(message)
+  //   }
 
-    return () => {
-      dispatch(reset())
-    }
-  }, [
-    // user, 
-    navigate, isError, message, dispatch])
+  //   dispatch(getExperience())
+
+  //   return () => {
+  //     dispatch(reset())
+  //   }
+  // }, [ user, navigate, isError, message, dispatch])
   
   // if (isLoading) {
   //   return <Spinner />
@@ -40,23 +36,23 @@ const Dashboard = () => {
   return (
     <Container>
       <Title title="Let's Build Your Resume"/>
-      {/* <h2 className="h2">Hello {user && user.name}!</h2> */}
+      <h2 className="h2">Hello {user ? user.name : "User"}!</h2>
       <div className="mt-5">
-        <Button className="btn mx-2" onClick={() => navigate('/profile]')}>Add Profile</Button>
+        <Button className="btn mx-2" onClick={() => navigate('/profile')}>Add Profile</Button>
         <Button className="btn mx-2" onClick={() => navigate('/experience')}>Add Experience</Button>
         <Button className="btn mx-2" onClick={() => navigate('/education')}>Add Education</Button>
       </div>
      
       <section className='content'>
-        {/* {experience.length > 0 ? (
+        {experience.length > 0 ? (
           <div className='experience'>
-            {experience.map((item, index) => (
-              <ExperienceItem key={index} item={item} />
+            {experience.map(({item, _id}) => (
+              <ExperienceItem key={_id} item={item} />
             ))} 
           </div>
         ) : (
-          <h3>You have not added any experience</h3>
-        )} */}
+          <h4 className='mt-5'>You have not added any experience yet.</h4>
+        )}
       </section>
     </Container>
   )
