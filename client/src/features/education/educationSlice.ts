@@ -16,18 +16,18 @@ type Education = {
 
 interface InitialState {
     education: Education[]
-    isError: boolean
+    isErrorEducation: boolean
     isSuccess: boolean
-    isLoading: boolean
-    message: string
+    isLoadingEducation: boolean
+    messageEducation: string
 }
 
 const initialState: InitialState = {
     education: [],
-    isError: false,
+    isErrorEducation: false,
     isSuccess: false,
-    isLoading: false,
-    message: ''
+    isLoadingEducation: false,
+    messageEducation: ''
 } 
 
 // create new education
@@ -37,8 +37,8 @@ export const createEducation = createAsyncThunk('education/create',
         const token = thunkAPI.getState().auth.user.token
         return await educationService.createEducation(education, token)
     } catch(err) {
-        const message = (err.response && err.response.data && err.response.data.message) || err.message || err.toString()
-        return thunkAPI.rejectWithValue(message)
+        const messageEducation = (err.response && err.response.data && err.response.data.messageEducation) || err.messageEducation || err.toString()
+        return thunkAPI.rejectWithValue(messageEducation)
     }
 })
 
@@ -49,8 +49,8 @@ export const getEducation = createAsyncThunk('education/getAll',
         const token = thunkAPI.getState().auth.user.token
         return await educationService.getEducation(token)
     } catch(err) {
-        const message = (err.response && err.response.data && err.response.data.message) || err.message || err.toString()
-        return thunkAPI.rejectWithValue(message)
+        const messageEducation = (err.response && err.response.data && err.response.data.messageEducation) || err.messageEducation || err.toString()
+        return thunkAPI.rejectWithValue(messageEducation)
     }
 }) 
 
@@ -62,13 +62,13 @@ export const deleteEducation = createAsyncThunk(
         const token = thunkAPI.getState().auth.user.token
         return await educationService.deleteEducation(id, token)
       } catch (error) {
-        const message =
+        const messageEducation =
           (error.response &&
             error.response.data &&
-            error.response.data.message) ||
-          error.message ||
+            error.response.data.messageEducation) ||
+          error.messageEducation ||
           error.toString()
-        return thunkAPI.rejectWithValue(message)
+        return thunkAPI.rejectWithValue(messageEducation)
       }
     }
   )
@@ -82,45 +82,45 @@ export const educationSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(createEducation.pending, (state) => {
-                state.isLoading = true
+                state.isLoadingEducation = true
             })
             .addCase(createEducation.fulfilled, (state, action) => {
-                state.isLoading = false
+                state.isLoadingEducation = false
                 state.isSuccess = true
                 state.education = state.education.concat(action.payload)
             })
             .addCase(createEducation.rejected, (state, action) => {
-                state.isLoading = false
-                state.isError = true
-                state.message = action.payload as string
+                state.isLoadingEducation = false
+                state.isErrorEducation = true
+                state.messageEducation = action.payload as string
             })
             .addCase(getEducation.pending, (state) => {
-                state.isLoading = true
+                state.isLoadingEducation = true
             })
             .addCase(getEducation.fulfilled, (state, action) => {
-                state.isLoading = false
+                state.isLoadingEducation = false
                 state.isSuccess = true
                 state.education = action.payload
             })
             .addCase(getEducation.rejected, (state, action) => {
-                state.isLoading = false
-                state.isError = true
-                state.message = action.payload as string
+                state.isLoadingEducation = false
+                state.isErrorEducation = true
+                state.messageEducation = action.payload as string
             })
             .addCase(deleteEducation.pending, (state) => {
-                state.isLoading = true
+                state.isLoadingEducation = true
               })
               .addCase(deleteEducation.fulfilled, (state, action) => {
-                state.isLoading = false
+                state.isLoadingEducation = false
                 state.isSuccess = true
                 state.education = state.education.filter(
                   (item) => item._id !== action.payload.id
                 )
               })
               .addCase(deleteEducation.rejected, (state, action) => {
-                state.isLoading = false
-                state.isError = true
-                state.message = action.payload as string
+                state.isLoadingEducation = false
+                state.isErrorEducation = true
+                state.messageEducation = action.payload as string
               })
     }
 })

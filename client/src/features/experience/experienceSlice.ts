@@ -16,18 +16,18 @@ type Experience = {
 
 interface InitialState {
     experience: Experience[]
-    isError: boolean
+    isErrorExperience: boolean
     isSuccess: boolean
-    isLoading: boolean
-    message: string
+    isLoadingExperience: boolean
+    messageExperience: string
 }
 
 const initialState: InitialState = {
     experience: [],
-    isError: false,
+    Experience: false,
     isSuccess: false,
-    isLoading: false,
-    message: ''
+    isLoadingExperience: false,
+    messageExperience: ''
 } 
 
 // create new experience
@@ -37,8 +37,8 @@ export const createExperience = createAsyncThunk('experience/create',
         const token = thunkAPI.getState().auth.user.token
         return await experienceService.createExperience(experience, token)
     } catch(err) {
-        const message = (err.response && err.response.data && err.response.data.message) || err.message || err.toString()
-        return thunkAPI.rejectWithValue(message)
+        const messageExperience = (err.response && err.response.data && err.response.data.messageExperience) || err.messageExperience || err.toString()
+        return thunkAPI.rejectWithValue(messageExperience)
     }
 })
 
@@ -49,8 +49,8 @@ export const getExperience = createAsyncThunk('experience/getAll',
         const token = thunkAPI.getState().auth.user.token
         return await experienceService.getExperience(token)
     } catch(err) {
-        const message = (err.response && err.response.data && err.response.data.message) || err.message || err.toString()
-        return thunkAPI.rejectWithValue(message)
+        const messageExperience = (err.response && err.response.data && err.response.data.messageExperience) || err.messageExperience || err.toString()
+        return thunkAPI.rejectWithValue(messageExperience)
     }
 }) 
 
@@ -62,13 +62,13 @@ export const deleteExperience = createAsyncThunk(
         const token = thunkAPI.getState().auth.user.token
         return await experienceService.deleteExperience(id, token)
       } catch (error) {
-        const message =
+        const messageExperience =
           (error.response &&
             error.response.data &&
-            error.response.data.message) ||
-          error.message ||
+            error.response.data.messageExperience) ||
+          error.messageExperience ||
           error.toString()
-        return thunkAPI.rejectWithValue(message)
+        return thunkAPI.rejectWithValue(messageExperience)
       }
     }
   )
@@ -82,45 +82,45 @@ export const experienceSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(createExperience.pending, (state) => {
-                state.isLoading = true
+                state.isLoadingExperience = true
             })
             .addCase(createExperience.fulfilled, (state, action) => {
-                state.isLoading = false
+                state.isLoadingExperience = false
                 state.isSuccess = true
                 state.experience = state.experience.concat(action.payload)
             })
             .addCase(createExperience.rejected, (state, action) => {
-                state.isLoading = false
-                state.isError = true
-                state.message = action.payload as string
+                state.isLoadingExperience = false
+                state.Experience = true
+                state.messageExperience = action.payload as string
             })
             .addCase(getExperience.pending, (state) => {
-                state.isLoading = true
+                state.isLoadingExperience = true
             })
             .addCase(getExperience.fulfilled, (state, action) => {
-                state.isLoading = false
+                state.isLoadingExperience = false
                 state.isSuccess = true
                 state.experience = action.payload
             })
             .addCase(getExperience.rejected, (state, action) => {
-                state.isLoading = false
-                state.isError = true
-                state.message = action.payload as string
+                state.isLoadingExperience = false
+                state.Experience = true
+                state.messageExperience = action.payload as string
             })
             .addCase(deleteExperience.pending, (state) => {
-                state.isLoading = true
+                state.isLoadingExperience = true
               })
               .addCase(deleteExperience.fulfilled, (state, action) => {
-                state.isLoading = false
+                state.isLoadingExperience = false
                 state.isSuccess = true
                 state.experience = state.experience.filter(
                   (item) => item._id !== action.payload.id
                 )
               })
               .addCase(deleteExperience.rejected, (state, action) => {
-                state.isLoading = false
-                state.isError = true
-                state.message = action.payload as string
+                state.isLoadingExperience = false
+                state.Experience = true
+                state.messageExperience = action.payload as string
               })
     }
 })

@@ -16,8 +16,10 @@ const Dashboard = () => {
   const dispatch = useAppDispatch()
   
   const { user } = useAppSelector((state) => state.auth)
-  const {experience, isLoading, isError, message} = useAppSelector(
+  const {experience, isLoadingExperience, isErrorExperience, messageExperience} = useAppSelector(
     (state) => state.experience)
+  const {education, isLoadingEducation, isErrorEducation, messageEducation} = useAppSelector(
+    (state) => state.education)
 
   // useEffect(() => {
   //   if (isError) {
@@ -31,7 +33,7 @@ const Dashboard = () => {
   //   }
   // }, [ user, navigate, isError, message, dispatch])
   
-  if (isLoading) {
+  if (isLoadingEducation || isLoadingExperience) {
     return <Spinner />
   }
 
