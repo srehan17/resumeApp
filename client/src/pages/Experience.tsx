@@ -6,18 +6,18 @@ import 'react-calendar/dist/Calendar.css'
 import Title from '../components/Title'
 import { useAppSelector, useAppDispatch } from '../app/hooks'
 import { createExperience } from '../features/experience/experienceSlice'
-import { useNavigate } from 'react-router-dom'
-import Spinner from '../components/Spinner'
 
 const Experience = () => {
 
-    const [formData, setFormData] = useState({
+    const initialState = {
         company: "",
         position: "",
         responsibilities: "",
         startYear: "",
         endYear: ""
-    })
+    }
+
+    const [formData, setFormData] = useState(initialState)
 
     // const [startDate, setStartDate] = useState<Date | null>(null)
     // const [endDate, setEndDate] = useState<Date | null>(null)
@@ -26,7 +26,6 @@ const Experience = () => {
     
     const {company, position, responsibilities, startYear, endYear} = formData
 
-    const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
     const [isChecked, setIsChecked] = useState(false)
@@ -37,7 +36,7 @@ const Experience = () => {
 
     const {experience, isLoading, isError, isSuccess, message} = useAppSelector(
         (state) => state.experience)
-
+    
     const onChange = (e) => {
         setFormData((prevState) => ({...prevState, [e.target.name]: e.target.value}))
     }
@@ -51,11 +50,8 @@ const Experience = () => {
         
         dispatch(createExperience(experienceData))
 
+        setFormData(initialState)
       };
-    
-    if (isLoading) {
-        return <Spinner />
-    }
 
     return (
         <Container>

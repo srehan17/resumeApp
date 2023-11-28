@@ -27,7 +27,7 @@ const Dashboard = () => {
     // dispatch(getExperience())
 
     return () => {
-      // dispatch(reset())
+      dispatch(reset())
     }
   }, [
     // user, 
@@ -48,8 +48,7 @@ const Dashboard = () => {
       </div>
      
       <section className='content'>
-        <h2>Experience</h2>
-        {experience.length > 0 ? (
+        {/* {experience.length > 0 ? (
           <div className='experience'>
             {experience.map((item, index) => (
               <ExperienceItem key={index} item={item} />
@@ -57,7 +56,7 @@ const Dashboard = () => {
           </div>
         ) : (
           <h3>You have not added any experience</h3>
-        )}
+        )} */}
       </section>
     </Container>
   )
