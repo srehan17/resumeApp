@@ -7,6 +7,7 @@ import { useAppSelector, useAppDispatch } from '../app/hooks'
 import Spinner from '../components/Spinner'
 import { getExperience, reset } from '../features/experience/experienceSlice'
 import ExperienceItem from '../components/ExperienceItem'
+import {Table} from 'react-bootstrap'
 
 const Dashboard = () => {
 
@@ -45,13 +46,27 @@ const Dashboard = () => {
      
       <section className='content'>
         {experience.length > 0 ? (
-          <div className='experience'>
-            {experience.map(({item, _id}) => (
-              <ExperienceItem key={_id} item={item} />
-            ))} 
-          </div>
+          <>
+          <h4 className='mt-5 text-uppercase'>Experience</h4>
+            <Table striped className='experience'>
+              <thead>
+                <tr>
+                  <th>Company</th>
+                  <th>Position</th>
+                  <th>Responsibilities</th>
+                  <th>Start Year</th>
+                  <th>End Year</th>
+                </tr>
+              </thead>
+              <tbody>
+                {experience.map((item) => (
+                  <tr key={item}><ExperienceItem item={item} /></tr>
+                ))} 
+              </tbody>
+            </Table>
+            </>
         ) : (
-          <h4 className='mt-5'>You have not added any experience yet.</h4>
+          null
         )}
       </section>
     </Container>

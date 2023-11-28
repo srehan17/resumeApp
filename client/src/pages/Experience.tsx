@@ -65,6 +65,7 @@ const Experience = () => {
         }
         
         dispatch(createExperience(experienceData))
+        navigate('/')
 
         // reset form data fields when form is submitted
         setFormData(initialState)
