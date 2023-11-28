@@ -28,29 +28,14 @@ const getProfile = async (token) => {
     return response.data
 }
 
-// Delete profile
-const deleteProfile = async (profileId, token) => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  
-    const response = await axios.delete(API_URL + profileId, config)
-  
-    return response.data
-  }
-  
 
 const profileService = {
     createProfile,
     getProfile,
-    deleteProfile
 }
 
 export default {
     profileService,
     createProfile,
     getProfile,
-    deleteProfile
 }

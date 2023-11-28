@@ -16,7 +16,7 @@ const Profile = () => {
 
   return (
     <Container>
-        <Title title="Profile Information" />
+        <Title title="Profile" />
         <Form>
             <Form.Group className="mb-3" controlId="formName">
                 <Form.Label>Name</Form.Label>

@@ -24,7 +24,7 @@ interface InitialState {
 
 const initialState: InitialState = {
     experience: [],
-    Experience: false,
+    isErrorExperience: false,
     isSuccess: false,
     isLoadingExperience: false,
     messageExperience: ''
