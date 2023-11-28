@@ -59,8 +59,8 @@ const Dashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {experience.map((item) => (
-                  <tr key={item}><ExperienceItem item={item} /></tr>
+                {experience.map((item, index) => (
+                  <tr key={index}><ExperienceItem item={item} /></tr>
                 ))} 
               </tbody>
             </Table>

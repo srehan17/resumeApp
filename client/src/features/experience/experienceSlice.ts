@@ -6,6 +6,7 @@ const experience = JSON.parse(localStorage.getItem('experience')!)
 // It tells the TypeScript compiler not to worry because the parameter will never be null which removes the TypeScript error.
 
 type Experience = {
+    _id?: string,
     company: string,
     position: string,
     responsibilities: string,
@@ -21,7 +22,7 @@ interface InitialState {
     message: string
 }
 
-const initialState = {
+const initialState: InitialState = {
     experience: [],
     isError: false,
     isSuccess: false,
@@ -53,6 +54,25 @@ export const getExperience = createAsyncThunk('experience/getAll',
     }
 }) 
 
+// Delete user experience
+export const deleteExperience = createAsyncThunk(
+    'goals/delete',
+    async (id, thunkAPI: any) => {
+      try {
+        const token = thunkAPI.getState().auth.user.token
+        return await experienceService.deleteExperience(id, token)
+      } catch (error) {
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString()
+        return thunkAPI.rejectWithValue(message)
+      }
+    }
+  )
+  
 export const experienceSlice = createSlice({
     name: 'experience',
     initialState,
@@ -68,7 +88,6 @@ export const experienceSlice = createSlice({
                 state.isLoading = false
                 state.isSuccess = true
                 state.experience = state.experience.concat(action.payload)
-                // state.experience.concat(action.payload)
             })
             .addCase(createExperience.rejected, (state, action) => {
                 state.isLoading = false
@@ -88,6 +107,21 @@ export const experienceSlice = createSlice({
                 state.isError = true
                 state.message = action.payload as string
             })
+            .addCase(deleteExperience.pending, (state) => {
+                state.isLoading = true
+              })
+              .addCase(deleteExperience.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.experience = state.experience.filter(
+                  (item) => item._id !== action.payload.id
+                )
+              })
+              .addCase(deleteExperience.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.message = action.payload as string
+              })
     }
 })
 

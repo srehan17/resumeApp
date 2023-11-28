@@ -28,13 +28,29 @@ const getExperience = async (token) => {
     return response.data
 }
 
+// Delete experience
+const deleteExperience = async (experienceId, token) => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  
+    const response = await axios.delete(API_URL + experienceId, config)
+  
+    return response.data
+  }
+  
+
 const experienceService = {
     createExperience,
-    getExperience
+    getExperience,
+    deleteExperience
 }
 
 export default {
     experienceService,
     createExperience,
-    getExperience
+    getExperience,
+    deleteExperience
 }

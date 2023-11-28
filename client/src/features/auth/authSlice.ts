@@ -16,7 +16,7 @@ const initialState = {
 type UserRegister = {
     name : string,
     email : string, 
-    password : string
+    password : string,
 }
 
 type UserLogin = {
