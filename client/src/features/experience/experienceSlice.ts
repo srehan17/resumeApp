@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import experienceService from './experienceService'
 
-const user = JSON.parse(localStorage.getItem('user')!)
+const experience = JSON.parse(localStorage.getItem('experience')!)
 // Added exclamation point / bang (!) directly after the parameter to JSON.parse(). 
 // It tells the TypeScript compiler not to worry because the parameter will never be null which removes the TypeScript error.
 
@@ -31,10 +31,10 @@ const initialState = {
 
 // create new experience
 export const createExperience = createAsyncThunk('experience/create', 
-  async (experienceData: Experience, thunkAPI : any) => {
+  async (experience: Experience, thunkAPI : any) => {
     try {
         const token = thunkAPI.getState().auth.user.token
-        return await experienceService.createExperience(experienceData, token)
+        return await experienceService.createExperience(experience, token)
     } catch(err) {
         const message = (err.response && err.response.data && err.response.data.message) || err.message || err.toString()
         return thunkAPI.rejectWithValue(message)
@@ -68,6 +68,7 @@ export const experienceSlice = createSlice({
                 state.isLoading = false
                 state.isSuccess = true
                 state.experience = state.experience.concat(action.payload)
+                // state.experience.concat(action.payload)
             })
             .addCase(createExperience.rejected, (state, action) => {
                 state.isLoading = false
