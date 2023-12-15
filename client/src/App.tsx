@@ -17,16 +17,16 @@ const App: FC = () => {
   return (
     <>
     <BrowserRouter>
-    <Header />
-    <Routes>      
-      <Route path="/" element={<Dashboard />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/education" element={<Education />} />
-      <Route path="/experience" element={<Experience />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="*" element={<InvalidPage />} />
-    </Routes>
+      <Header />
+      <Routes>      
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/education" element={<Education />} />
+        <Route path="/experience" element={<Experience />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="*" element={<InvalidPage />} />
+      </Routes>
     </BrowserRouter>
     <ToastContainer/>
     </>
