@@ -1,4 +1,4 @@
-Resume Builder
+Resume Builder:
 
 > Users can register and login to add their Profile, Experience and Education information
 
