@@ -1,4 +1,4 @@
-Front-end
+Front-end in React
 
 # Getting Started with Create React App
 
